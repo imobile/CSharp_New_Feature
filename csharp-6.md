@@ -294,7 +294,7 @@ try
 {
     await this.HogeAsync();
 }
-catch (HogeException e) when ()
+catch (HogeException e)
 {
     if (e.Message.Contains == "fuga") 
     {
