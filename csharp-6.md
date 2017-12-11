@@ -65,25 +65,6 @@ public class Student
 
 本体が 1 つの文しかないようなメンバは式で置き換えられる
 
-```csharp
-public class Student
-{
-    public string FirstName { get; }
-    public string LastName { get; }
-
-    // expression-bodied なプロパティ (get only)
-    public string FullName => $"{this.FirstName} {this.LastName}";
-
-    public Student(string firstName, string lastName)
-    {
-        this.FirstName = firstName;
-        this.LastName = lastName;
-    }
-
-    public override string ToString() => $"{this.LastName}, {this.FirstName}";
-}
-```
-
 #### C#5 以前
 
 C#5 以前は 1 つの式で書けるものでも return 文を書く必要があった
@@ -111,6 +92,28 @@ public class Student
     }
 }
 ```
+
+#### C#6
+
+```csharp
+public class Student
+{
+    public string FirstName { get; }
+    public string LastName { get; }
+
+    // expression-bodied なプロパティ (get only)
+    public string FullName => $"{this.FirstName} {this.LastName}";
+
+    public Student(string firstName, string lastName)
+    {
+        this.FirstName = firstName;
+        this.LastName = lastName;
+    }
+
+    public override string ToString() => $"{this.LastName}, {this.FirstName}";
+}
+```
+
 
 ## using static
 
@@ -270,24 +273,9 @@ G.P.A: {(Grades.Any() ? Grades.Average() : double.NaN):F2}"
 
 ## 例外フィルタ (Exception Filters)
 
-`when` で指定した条件を満たす場合だけ catch する
-
-```csharp
-try
-{
-    await this.HogeAsync();
-}
-catch (HogeException e) when (e.Message.Contains == "fuga")
-{
-    // fuga が含まれてたときだけなにかするとか
-    return Foo();
-}
-// 他の時はそのまま throw する
-```
-
 ### C#5 まで
 
-C#5 までで同じようなことを書くと
+C#5 までで catch した例外をフィルタしたい場合
 
 ```csharp
 try
@@ -309,6 +297,24 @@ catch (HogeException e)
 }
 // 他の時はそのまま throw する
 ```
+
+### C#6
+
+`when` で指定した条件を満たす場合だけ catch する
+
+```csharp
+try
+{
+    await this.HogeAsync();
+}
+catch (HogeException e) when (e.Message.Contains == "fuga")
+{
+    // fuga が含まれてたときだけなにかするとか
+    return Foo();
+}
+// 他の時はそのまま throw する
+```
+
 
 ## `nameof` (`nameof` Expressions)
 
